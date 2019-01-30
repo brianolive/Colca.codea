@@ -25,7 +25,11 @@ function studioIntro()
         end
         
         if time.total == start + 400 then
-            tween(1, anim, {fallingFade = 0, fade = 0}, tween.easing.cubicIn, nextScene)
+            tween(1, anim, {fallingFade = 0, fade = 0}, tween.easing.cubicIn)
+        end
+        
+        if time.total == start + 500 then
+            nextScene()
         end
      
         if time.total > start + 120 then
