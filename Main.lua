@@ -7,6 +7,7 @@ function setup()
     
     --table.insert(stage.left, time)
     table.insert(stage.left, studioIntro())
+    --table.insert(stage.left, menu())
 end
 
 function draw()

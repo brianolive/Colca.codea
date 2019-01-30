@@ -1,8 +1,11 @@
 function studioIntro()
     local scene = {}
-    
     local anim = {fallingFade = 0, fade = 0, rot = 0}
     local start
+    
+    local function nextScene()
+        table.insert(stage.left, menu())
+    end
     
     function scene.enter()
         return true
@@ -16,12 +19,13 @@ function studioIntro()
             tween(1.7, anim, {fade = 255}, tween.easing.cubicIn)
         end
         
-        if time.total == start + 270 then
-            tween(1.75, anim, {rot = -30}, tween.easing.bounceOut)
+        if time.total == start + 230 then
+            tween(0.75, anim, {rot = -5}, tween.easing.cubicIn, function()
+                tween(1, anim, {rot = -30}, tween.easing.bounceOut) end)
         end
         
         if time.total == start + 400 then
-            tween(1, anim, {fallingFade = 0, fade = 0}, tween.easing.cubicIn)
+            tween(1, anim, {fallingFade = 0, fade = 0}, tween.easing.cubicIn, nextScene)
         end
      
         if time.total > start + 120 then
@@ -70,7 +74,7 @@ function studioIntro()
             font("Copperplate-Light")
             textMode(CENTER)
             fontSize(26)
-            text("Studios", WIDTH / 2, HEIGHT / 2 - 20)
+            text("Studio", WIDTH / 2, HEIGHT / 2 - 20)
             
             popStyle()     
         end
