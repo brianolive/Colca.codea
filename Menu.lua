@@ -11,8 +11,8 @@ function menu()
     local sceneEnded
     
     local function fadeOut()
-        tween(0.5, anim, {finalFadeOut = 255})
-        sceneEnded = time.total
+        tween(0.5, anim, {finalFadeOut = 255}, tween.easing.linear,
+            function() sceneEnded = time.total scene.exit(true) end)
     end
     
     function scene.enter()
@@ -47,7 +47,7 @@ function menu()
             tween(0.3, anim, {playFade = 255}, tween.easing.cubicIn)
         end
         
-        if time.total > start + 60 then
+        if time.total > start + 60 and not sceneEnded then
             pushStyle()
             
             stroke(245, 218, 0, anim.colcaFade)
@@ -91,7 +91,7 @@ function menu()
             popStyle()
         end
         
-        if time.total > start + 90 then
+        if time.total > start + 90 and not sceneEnded then
             tint(255, 255, 255, anim.fade)
             sprite("Project:c", WIDTH / 2 - 417, HEIGHT / 2 + 120, 175)
             sprite("Project:l", WIDTH / 2  - 7, HEIGHT / 2 + 230, 11)
@@ -99,7 +99,7 @@ function menu()
             sprite("Project:a", WIDTH / 2 + 398, HEIGHT / 2 + 120, 245)
         end
 
-        if time.total > start + 210 then
+        if time.total > start + 210 and not sceneEnded then
             pushStyle()
             
             textMode(CENTER)
@@ -121,14 +121,10 @@ function menu()
                 end
                 
                 if CurrentTouch.state == ENDED and playEnded == nil then         
-                    tween(1, anim, {descendColca = -200}, tween.easing.cubicIn, fadeOut)
+                    tween(2.5, anim, {descendColca = -200}, tween.easing.cubicIn, fadeOut)
                     playEnded = true
                 end
             end
-        end
-        
-        if sceneEnded and time.total > sceneEnded + 60 then
-            
         end
         
         pushStyle()
@@ -139,8 +135,8 @@ function menu()
         popStyle()
     end
     
-    function scene.exit()
-        return false
+    function scene.exit(bool)
+        return bool
     end
     
     return scene
