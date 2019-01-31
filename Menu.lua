@@ -180,7 +180,7 @@ function menu()
         end
         
         if playEnded and time.total == playEnded + 30 then
-            tween(4, anim.volcanoRed, {r = 124, g = 31, b = 33, a = 100},
+            tween(4, anim.volcanoRed, {r = 124, g = 31, b = 33, a = 50},
                 tween.easing.linear, fadeOut)
         end
         
@@ -188,9 +188,9 @@ function menu()
             pushStyle()
             
             fill(anim.volcanoRed)
-            ellipse(WIDTH / 2 - 47, 257, 20, 10)
+            ellipse(WIDTH / 2 - 47, 256, 20, 10)
             fill(25, 18, 18, anim.volcanoRed.a)
-            ellipse(WIDTH / 2 - 47, 257, 10, 5)
+            ellipse(WIDTH / 2 - 47, 256, 10, 5)
             
             popStyle()
         end
