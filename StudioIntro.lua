@@ -13,6 +13,7 @@ function studioIntro()
     end
     
     function scene.act()
+        background()
         start = start or time.total
         
         if time.total == start + 120 then

@@ -1,5 +1,5 @@
 function touched(t)
-    if t.state == BEGAN then
-        touch = true
+    for i, v in ipairs(stage) do
+        stage[i].touched(t)
     end
 end

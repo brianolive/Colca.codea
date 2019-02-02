@@ -1,7 +1,10 @@
 -- Colca
 
 function setup()
-    displayMode(FULLSCREEN)
+    displayMode(OVERLAY)
+    parameter.watch("falls")
+    parameter.watch("missedMixes")
+    
     time()
     stage()
     levels()
