@@ -7,7 +7,7 @@ function time()
     time.enter = true
     time.exit = false
     
-    function time.tick()
+    function time.start()
         time.total = time.total + 1
         time.frame = time.frame + 1
         

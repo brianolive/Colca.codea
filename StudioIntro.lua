@@ -5,6 +5,7 @@ function studioIntro()
     
     local function nextScene()
         table.insert(stage.left, menu())
+        scene.exit(true)
     end
     
     function scene.enter()
@@ -84,8 +85,8 @@ function studioIntro()
         end
     end
     
-    function scene.exit()
-        return false
+    function scene.exit(bool)
+        return bool or false
     end
     
     return scene

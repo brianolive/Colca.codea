@@ -1,5 +1,6 @@
 function menu()
     local scene = {}
+    
     local anim = {
         colcaFade = 255,
         colcaStringFade = 255,
@@ -26,7 +27,8 @@ function menu()
     
     local function fadeOut()
         tween(1, anim, {finalFadeOut = 255}, tween.easing.linear,
-            function() sceneEnded = time.total scene.exit(true) end)
+            function() sceneEnded = time.total table.insert(stage.left, red())
+                scene.exit(true) end)
     end
     
     function scene.enter()
@@ -87,8 +89,17 @@ function menu()
             strokeWidth(10)
             line(WIDTH / 2 - 177, HEIGHT, WIDTH / 2 - 177, anim.descendString + 100)
             
+            stroke(255, 255, 255, anim.colcaStringFade)
+            strokeWidth(1)
+            line(WIDTH / 2 - 177 - 5, HEIGHT, WIDTH / 2 - 177 - 5, anim.descendString + 100)
+            
             stroke(245, 218, 0, anim.colcaFade)
             strokeWidth(20)
+            fill(0, 0, 0, 0)
+            ellipse(WIDTH / 2 - 177, anim.descendColca, 200)
+            
+            stroke(255, 255, 255, anim.colcaFade)
+            strokeWidth(1)
             fill(0, 0, 0, 0)
             ellipse(WIDTH / 2 - 177, anim.descendColca, 200)
             
@@ -203,7 +214,7 @@ function menu()
         popStyle()
     end
     
-    function scene.exit(bool)
+    function scene.exit(bool)      
         return bool
     end
     
