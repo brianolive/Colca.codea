@@ -1,20 +1,22 @@
-function red()
+function red(level)
     local scene = {}  
     
     local start
+    finish = false
+    local finishFade = color(0, 0, 0, 0)
     local slots = {}
-    local slotCount = 10
-    local spacing = (WIDTH - 200) / (slotCount - 1)
+    local slotCount = levels[level].slotCount
+    local spacing = levels[level].spacing
     local dropSpeed = 7
     hangingColcas = 0
     totalColcas = 0
-    local lowestHeight = math.maxinteger
-    local lowestColca = nil
     falls = 0
+    goodMixes = 0
     missedMixes = 0
+    local anim = {border = 0, tap = 0, readyFade = 0}
     
     local function dropTime()
-        return math.floor(time.total - start) % (levels["Red"].dropFrequency * 60) == 0
+        return math.floor(time.total - start) % (levels[level].dropFrequency * 60) == 0
     end
     
     local function slotsAvailable()
@@ -43,9 +45,9 @@ function red()
     end
     
     local function createColca(slot)
-        local col = levels["Red"].colors[math.random(1, #levels["Red"].colors)]
-        local hangTime = math.floor(math.random(levels["Red"].hangTime[1],
-            levels["Red"].hangTime[2]))
+        local col = levels[level].colors[math.random(1, #levels[level].colors)]
+        local hangTime = math.floor(math.random(levels[level].hangTime[1],
+            levels[level].hangTime[2]))
             
         slots[slot].start = time.total
         slots[slot].col = col
@@ -55,14 +57,79 @@ function red()
     
     local function initSlot(slotNumber)
         slots[slotNumber] = {}
-        slots[slotNumber].x = 100 + (spacing * (slotNumber - 1))
+        slots[slotNumber].x = levels[level].leftSlotX + (spacing * (slotNumber - 1))
         slots[slotNumber].col = color(0, 0, 0, 255)
         slots[slotNumber].stringWidth = 5
     end
     
+    local function levelOver(slot)
+        finish = true
+
+        tween(
+            0.5,
+            finishFade,
+            {a = 255},
+            tween.easing.linear,
+            function()
+                for i, v in ipairs(slots) do
+                    tween.stopAll()
+                    initSlot(i)
+                end
+            end
+        )
+        
+        if slot ~= 0 then
+            
+        end
+    end
+    
+    local function showMix()
+        if time.total == start + 240 then
+            tween(
+                0.4,
+                anim,
+                {border = 255},
+                tween.easing.linear
+            )
+        end
+        
+        if time.total == start + 340 then
+            local tapTween =
+            tween(
+                0.2,
+                anim,
+                {tap = 200},
+                tween.easing.linear,
+                function()
+                    tween(
+                        1.5,
+                        anim,
+                        {tap = 0}
+                    )
+                end
+            )
+        end
+    end
+    
+    local function showReady()      
+        tween(
+            2.5,
+            anim,
+            {readyFade = 255},
+            tween.easing.linear,
+            function()
+                tween(
+                    0.5,
+                    anim,
+                    {readyFade = 0}
+                )
+            end
+        )
+    end
+    
     local function dropColca(slot)
-        local lowestDropPoint = math.floor(math.random(levels["Red"].dropRange[1],
-            levels["Red"].dropRange[2]))
+        local lowestDropPoint = math.floor(math.random(levels[level].dropRange[1],
+            levels[level].dropRange[2]))
         
         slots[slot].dropTween = tween(
             dropSpeed,
@@ -87,6 +154,10 @@ function red()
                         initSlot(slot)
                         falls = falls + 1
                         hangingColcas = hangingColcas - 1
+                
+                        if falls > levels[level].maxFalls then
+                            levelOver(slot)
+                        end
                     end
                 )
             end
@@ -100,14 +171,14 @@ function red()
         slot = slot or 0
         
         local lowestHeights = {}
-        for i = 1, levels["Red"].mixable do
+        for i = 1, levels[level].mixable do
             lowestHeights[i] = math.maxinteger
         end
         
         local lowestSlots = {}
         for i, v in ipairs(slots) do
             if slots[i].col ~= color(0, 0, 0, 255) then
-                for j = 1, levels["Red"].mixable do
+                for j = 1, levels[level].mixable do
                     if slots[i].dropHeight < lowestHeights[j] then
                         table.insert(lowestHeights, j, slots[i].dropHeight)
                         table.insert(lowestSlots, j, i)
@@ -115,23 +186,19 @@ function red()
                     end
                 end
 
-                lowestHeights[levels["Red"].mixable + 1] = nil
-                lowestSlots[levels["Red"].mixable + 1] = nil
+                lowestHeights[levels[level].mixable + 1] = nil
+                lowestSlots[levels[level].mixable + 1] = nil
             end
         end
         
         local low = false
-        for i = 1, levels["Red"].mixable do
+        for i = 1, levels[level].mixable do
             if lowestSlots[i] == slot then
                 return true
             end
         end
         
         return false, lowestSlots
-    end
-    
-    local function finish()
-        print("done")
     end
     
     function scene.enter()
@@ -145,16 +212,46 @@ function red()
     function scene.act()
         start = start or time.total
         
-        if time.total < start + 120 then
+        if levels[level].type == "intro" then
+            if time.total < start + 120 then
+                return
+            elseif time.total == start + 240 or time.total == start + 340 then
+                showMix()
+            end 
+        elseif levels[level].type == "play" and time.total == start then
+            showReady()
+        end
+        
+        if levels[level].type == "intro" and time.total > start + 240 then
+            local col = color()
+            col.r = levels[level].colors[1].r
+            col.g = levels[level].colors[1].g
+            col.b = levels[level].colors[1].b
+            drawMix(color(col.r, col.g, col.b, anim.border))
+            drawTap(color(col.r, col.g, col.b), anim.tap)
+        end
+        
+        if levels[level].type == "play" and time.total < start + 240 then
+            pushStyle()
+            
+            font("Futura-Medium")
+            fontSize(30)
+            fill(127, 127, 127, anim.readyFade)
+            text("Ready", WIDTH / 2, HEIGHT / 2)
+            
+            popStyle()
+            
             return
         end
         
-        if totalColcas > levels["Red"].colcaCount or falls > levels["Red"].maxFalls then
-            finish()
+        if goodMixes >= (levels[level].colcaCount - levels[level].maxFalls) and
+            hangingColcas == 0 then
+            
+            levelOver(0)
         end
         
         local slot
-        if dropTime() == true then   
+        if not finish and dropTime() == true and totalColcas < levels[level].colcaCount then   
             slot = getAvailableSlot()
             if slot ~= 0 then
                 createColca(slot)
@@ -163,19 +260,19 @@ function red()
         end
         
         for i = 1, slotCount do
-            if slots[i].col ~= color(0, 0, 0, 255) then     
+            if slots[i].col ~= color(0, 0, 0, 255) then   
                 pushStyle()
                 
                 stroke(slots[i].col)
                 if lowest(i) then
-                    strokeWidth(slots[i].stringWidth)
+                    strokeWidth(math.ceil(slots[i].stringWidth))
                 else
                     strokeWidth(0)
                 end
                 line(slots[i].x, HEIGHT, slots[i].x, slots[i].dropHeight + 50)
                 
                 stroke(255)
-                strokeWidth(math.min(1, slots[i].stringWidth))
+                strokeWidth(math.min(1, math.ceil(slots[i].stringWidth)))
                 line(slots[i].x, HEIGHT, slots[i].x, slots[i].dropHeight + 50)
                 
                 stroke(slots[i].col)
@@ -195,6 +292,11 @@ function red()
                 
                 popStyle()
             end
+        end
+        
+        if finish == true then
+            fill(finishFade)
+            rect(0, 0, WIDTH, HEIGHT)
         end
     end
     
@@ -223,12 +325,22 @@ function red()
                             tween.stop(slots[lowestTable[i]].fallTween)
                         end
                         
-                        initSlot(lowestTable[i])
-                        hangingColcas = hangingColcas - 1
+                        tween(
+                            0.3,
+                            slots[lowestTable[i]],
+                            {dropHeight = HEIGHT},
+                            tween.easing.cubicIn,
+                            function()
+                                initSlot(lowestTable[i])
+                                hangingColcas = hangingColcas - 1
+                            end
+                        )
+                        
                         matchingColor = true
+                        goodMixes = goodMixes + 1
                     end
                     
-                    break
+                    break 
                 end
             end
             

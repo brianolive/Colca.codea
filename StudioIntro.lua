@@ -2,10 +2,11 @@ function studioIntro()
     local scene = {}
     local anim = {fallingFade = 0, fade = 0, rot = 0}
     local start
+    local exit = false
     
     local function nextScene()
         table.insert(stage.left, menu())
-        scene.exit(true)
+        exit = true
     end
     
     function scene.enter()
@@ -86,8 +87,12 @@ function studioIntro()
         end
     end
     
-    function scene.exit(bool)
-        return bool or false
+    function scene.exit()
+        return exit
+    end
+    
+    function scene.touched(t)
+        -- Do nothing
     end
     
     return scene

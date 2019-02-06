@@ -25,19 +25,17 @@ end
 function getMixedColor()
     local r, g, b = 0, 0, 0
     local value = 0
-    local rowHeight = HEIGHT / 5
+    local rowHeight = HEIGHT / 4
     
     for i, v in ipairs(stage.mixedColor) do
-        if v.y > rowHeight * 4 and v.y < HEIGHT then
+        if v.y > rowHeight * 3 and v.y < HEIGHT then
             value = 255
-        elseif v.y > rowHeight * 3 then
-            value = 191
         elseif v.y > rowHeight * 2 then
-            value = 127
+            value = 191
         elseif v.y > rowHeight then
-            value = 63
+            value = 127
         else
-            value = 0
+            value = 63
         end
         
         if v.x < WIDTH / 3 then
@@ -50,4 +48,28 @@ function getMixedColor()
     end
 
     return color(r, g, b)
+end
+
+function drawMix(col)
+    if col.r == 255 then
+        pushStyle()
+        
+        fill(0, 0, 0, 0)
+        stroke(col)
+        strokeWidth(5)
+        rect(0, (HEIGHT / 4) * 3,  WIDTH / 3, HEIGHT)
+              
+        popStyle()
+    end
+end
+
+function drawTap(col, tap)
+    if col.r == 255 then
+        pushStyle()
+
+        fill(150, 150, 150, tap)
+        ellipse((WIDTH / 3) / 2, (HEIGHT / 4) * 3 + ((HEIGHT / 4) / 2),  60, 62)
+        
+        popStyle()
+    end
 end

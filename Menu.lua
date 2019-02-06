@@ -24,11 +24,12 @@ function menu()
     local playStarted
     local playEnded
     local sceneEnded
+    local exit = false
     
     local function fadeOut()
         tween(1, anim, {finalFadeOut = 255}, tween.easing.linear,
-            function() sceneEnded = time.total table.insert(stage.left, red())
-                scene.exit(true) end)
+            function() sceneEnded = time.total table.insert(stage.left,
+                title("RedTitle")) exit = true end)
     end
     
     function scene.enter()
@@ -40,7 +41,6 @@ function menu()
         start = start or time.total
 
         if time.total == start then
-            --tween(1, anim.backgroundFade, {r = 0, g = 34, b = 56})
             tween(1, anim.backgroundColor, {r = 0, g = 126, b = 158})
         end
         
@@ -214,8 +214,12 @@ function menu()
         popStyle()
     end
     
-    function scene.exit(bool)      
-        return bool
+    function scene.exit()      
+        return exit
+    end
+    
+    function scene.touched(t)
+        
     end
     
     return scene

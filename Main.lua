@@ -1,10 +1,14 @@
 -- Colca
 
 function setup()
-    displayMode(OVERLAY)
-    parameter.watch("falls")
+    displayMode(FULLSCREEN)
+    parameter.watch("totalColcas")
+    parameter.watch("goodMixes")
     parameter.watch("missedMixes")
-    
+    parameter.watch("falls")
+    parameter.watch("hangingColcas")
+    parameter.watch("finish")
+
     time()
     stage()
     levels()
@@ -12,7 +16,9 @@ function setup()
     --table.insert(stage.left, time)
     --table.insert(stage.left, studioIntro())
     --table.insert(stage.left, menu())
-    table.insert(stage.left, red())
+    --table.insert(stage.left, title("RedTitle"))
+    --table.insert(stage.left, red("RedIntro"))
+    table.insert(stage.left, red("Red"))
 end
 
 function draw()
