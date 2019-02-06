@@ -28,8 +28,12 @@ function menu()
     
     local function fadeOut()
         tween(1, anim, {finalFadeOut = 255}, tween.easing.linear,
-            function() sceneEnded = time.total table.insert(stage.left,
-                title("RedTitle")) exit = true end)
+            function()
+                sceneEnded = time.total
+                scenes.next()
+                exit = true
+            end
+        )
     end
     
     function scene.enter()

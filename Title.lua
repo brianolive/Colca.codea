@@ -62,7 +62,7 @@ function title(level)
                 {r = 0, g = 0, b = 0, a = 0},
                 tween.easing.cubicIn,
                 function()
-                    table.insert(stage.left, red(levels[level].nextScene))
+                    scenes.next()
                     scene.exit(true)
                 end
             )

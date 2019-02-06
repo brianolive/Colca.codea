@@ -5,7 +5,7 @@ function studioIntro()
     local exit = false
     
     local function nextScene()
-        table.insert(stage.left, menu())
+        scenes.next()
         exit = true
     end
     

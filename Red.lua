@@ -22,7 +22,7 @@ function red(level)
     local function slotsAvailable()
         local available = false
         for i, v in ipairs(slots) do
-            if slots[i].col ==color(0, 0, 0, 255) then
+            if slots[i].col == color(0, 0, 0, 255) then
                 available = true
             end
         end

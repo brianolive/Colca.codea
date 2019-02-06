@@ -11,19 +11,13 @@ function setup()
 
     time()
     stage()
+    scenes(2)
     levels()
-    
-    --table.insert(stage.left, time)
-    --table.insert(stage.left, studioIntro())
-    --table.insert(stage.left, menu())
-    --table.insert(stage.left, title("RedTitle"))
-    --table.insert(stage.left, red("RedIntro"))
-    table.insert(stage.left, red("Red"))
 end
 
 function draw()
     background(0, 0, 0, 255)
     
     time.start()
-    direct()
+    scenes.direct()
 end
