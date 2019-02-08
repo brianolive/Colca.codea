@@ -1,12 +1,12 @@
-function red(level)
+function red()
     local scene = {}  
     
     local start
     finish = false
     local finishFade = color(0, 0, 0, 0)
     local slots = {}
-    local slotCount = levels[level].slotCount
-    local spacing = levels[level].spacing
+    local slotCount = levels[levels.current].slotCount
+    local spacing = levels[levels.current].spacing
     local dropSpeed = 7
     hangingColcas = 0
     totalColcas = 0
@@ -16,7 +16,7 @@ function red(level)
     local anim = {border = 0, tap = 0, readyFade = 0}
     
     local function dropTime()
-        return math.floor(time.total - start) % (levels[level].dropFrequency * 60) == 0
+        return math.floor(time.total - start) % (levels[levels.current].dropFrequency * 60) == 0
     end
     
     local function slotsAvailable()
@@ -45,9 +45,9 @@ function red(level)
     end
     
     local function createColca(slot)
-        local col = levels[level].colors[math.random(1, #levels[level].colors)]
-        local hangTime = math.floor(math.random(levels[level].hangTime[1],
-            levels[level].hangTime[2]))
+        local col = levels[levels.current].colors[math.random(1, #levels[levels.current].colors)]
+        local hangTime = math.floor(math.random(levels[levels.current].hangTime[1],
+            levels[levels.current].hangTime[2]))
             
         slots[slot].start = time.total
         slots[slot].col = col
@@ -57,7 +57,7 @@ function red(level)
     
     local function initSlot(slotNumber)
         slots[slotNumber] = {}
-        slots[slotNumber].x = levels[level].leftSlotX + (spacing * (slotNumber - 1))
+        slots[slotNumber].x = levels[levels.current].leftSlotX + (spacing * (slotNumber - 1))
         slots[slotNumber].col = color(0, 0, 0, 255)
         slots[slotNumber].stringWidth = 5
     end
@@ -128,8 +128,8 @@ function red(level)
     end
     
     local function dropColca(slot)
-        local lowestDropPoint = math.floor(math.random(levels[level].dropRange[1],
-            levels[level].dropRange[2]))
+        local lowestDropPoint = math.floor(math.random(levels[levels.current].dropRange[1],
+            levels[levels.current].dropRange[2]))
         
         slots[slot].dropTween = tween(
             dropSpeed,
@@ -155,7 +155,7 @@ function red(level)
                         falls = falls + 1
                         hangingColcas = hangingColcas - 1
                 
-                        if falls > levels[level].maxFalls then
+                        if falls > levels[levels.current].maxFalls then
                             levelOver(slot)
                         end
                     end
@@ -171,14 +171,14 @@ function red(level)
         slot = slot or 0
         
         local lowestHeights = {}
-        for i = 1, levels[level].mixable do
+        for i = 1, levels[levels.current].mixable do
             lowestHeights[i] = math.maxinteger
         end
         
         local lowestSlots = {}
         for i, v in ipairs(slots) do
             if slots[i].col ~= color(0, 0, 0, 255) then
-                for j = 1, levels[level].mixable do
+                for j = 1, levels[levels.current].mixable do
                     if slots[i].dropHeight < lowestHeights[j] then
                         table.insert(lowestHeights, j, slots[i].dropHeight)
                         table.insert(lowestSlots, j, i)
@@ -186,13 +186,13 @@ function red(level)
                     end
                 end
 
-                lowestHeights[levels[level].mixable + 1] = nil
-                lowestSlots[levels[level].mixable + 1] = nil
+                lowestHeights[levels[levels.current].mixable + 1] = nil
+                lowestSlots[levels[levels.current].mixable + 1] = nil
             end
         end
         
         local low = false
-        for i = 1, levels[level].mixable do
+        for i = 1, levels[levels.current].mixable do
             if lowestSlots[i] == slot then
                 return true
             end
@@ -212,7 +212,8 @@ function red(level)
     function scene.act()
         start = start or time.total
         
-        if levels[level].type == "intro" then
+        if levels[levels.current].type == "intro" then
+
             if time.total < start + 120 then
                 return
             elseif time.total == start + 240 or time.total == start + 340 then
@@ -224,7 +225,8 @@ function red(level)
         
         if levels[level].type == "intro" and time.total > start + 240 then
             local col = color()
-            col.r = levels[level].colors[1].r
+            col.r = levels[levels.current].colors[1].r
+
             col.g = levels[level].colors[1].g
             col.b = levels[level].colors[1].b
             drawMix(color(col.r, col.g, col.b, anim.border))

@@ -9,13 +9,15 @@
 		<string>Main</string>
 		<string>Time</string>
 		<string>Stage</string>
-		<string>Scenes</string>
 		<string>Levels</string>
+		<string>Scenes</string>
 		<string>Touch</string>
+		<string>Action</string>
+		<string>Tables</string>
 		<string>StudioIntro</string>
 		<string>Menu</string>
+		<string>LevelTitle</string>
 		<string>Mix</string>
-		<string>Title</string>
 		<string>Red</string>
 	</array>
 	<key>Description</key>

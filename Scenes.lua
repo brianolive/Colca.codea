@@ -5,10 +5,20 @@ function scenes(n)
         {time},
         {studioIntro},
         {menu},
-        {title, "RedTitle"},
+        {levelTitle, "RedTitle"},
         {red, "RedIntro"},
         {red, "Red"}
     }
+    
+    function scenes.next(n)
+        currentScene = n or currentScene + 1
+        
+        if scenes[currentScene] then
+            -- Scene, Level
+            levels.current = scenes[currentScene][2]
+            table.insert(stage.left, scenes[currentScene][1]())
+        end
+    end
     
     function scenes.direct(n)  
         for i, v in ipairs(stage.left) do
@@ -23,16 +33,8 @@ function scenes(n)
             
             if stage[i].exit() == true then
                 table.remove(stage, i)
+                scenes.next()
             end
-        end
-    end
-    
-    function scenes.next(n)
-        currentScene = n or currentScene + 1
-        
-        if scenes[currentScene] then
-            -- Scene, Level
-            table.insert(stage.left, scenes[currentScene][1](scenes[currentScene][2]))
         end
     end
     

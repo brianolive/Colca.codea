@@ -1,5 +1,6 @@
 function levels()
     levels = {}
+    levels.current = nil
     
     levels["RedTitle"] = {
         name = "Red",

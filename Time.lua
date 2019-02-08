@@ -2,8 +2,8 @@ function time()
     time = {}
     
     time.total = 0
-    time.frame = 0
-    time.second = 1
+    time.frame = 1
+    time.second = 0
     
     function time.start()
         time.total = time.total + 1

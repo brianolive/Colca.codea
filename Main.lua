@@ -8,11 +8,13 @@ function setup()
     parameter.watch("falls")
     parameter.watch("hangingColcas")
     parameter.watch("finish")
-
+    
     time()
     stage()
-    scenes(2)
     levels()
+    scenes(4)
+    
+    --table.insert(stage.left, time)
 end
 
 function draw()
