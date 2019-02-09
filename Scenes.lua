@@ -3,11 +3,11 @@ function scenes(n)
     
     scenes = {
         {time},
-        {studioIntro},
-        {menu},
-        {levelTitle, "RedTitle"},
-        {red, "RedIntro"},
-        {red, "Red"}
+        {studioIntroScene},
+        {menuScene},
+        {titleScene, "RedTitle"},
+        {redScene, "RedIntro"},
+        {redScene, "Red"}
     }
     
     function scenes.next(n)

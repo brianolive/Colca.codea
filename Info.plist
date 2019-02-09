@@ -13,10 +13,10 @@
 		<string>Scenes</string>
 		<string>Touch</string>
 		<string>Action</string>
-		<string>Tables</string>
 		<string>StudioIntro</string>
 		<string>Menu</string>
-		<string>LevelTitle</string>
+		<string>NewMenu</string>
+		<string>TitleScene</string>
 		<string>Mix</string>
 		<string>Red</string>
 	</array>

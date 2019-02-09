@@ -1,4 +1,4 @@
-function menu()
+function menuScene()
     local scene = {}
     
     local anim = {

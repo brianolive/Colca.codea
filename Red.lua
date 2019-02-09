@@ -1,4 +1,4 @@
-function red()
+function redScene()
     local scene = {}  
     
     local start

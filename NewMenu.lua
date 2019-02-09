@@ -1,4 +1,4 @@
-function levelTitle()
+function newMenuScene()
     local scene = {}
     scene.action = action
     
@@ -18,14 +18,9 @@ function levelTitle()
         action = action or scene.action(start)
 
         -- start, stop, object (draw), action (tween)
-        action{61, 90, title.underline, "fadeIn", {}}
-        action{61, 360, title.underline, "stretch"}
-        action{121, 180, title, "fadeIn"}
-        action{181, 360, title}
-        action{361, 420, title.underline, "fadeOut"}
-        action{361, 420, title, "fadeOut"}
+        action{120, 222, studioIntro.whiteText, "whiteFadeIn"}
         
-        stop = (time.total == start + 421)
+        --stop = (time.total == start + 500)
     end
     
     function scene.exit()
@@ -38,3 +33,5 @@ function levelTitle()
     
     return scene
 end
+
+
