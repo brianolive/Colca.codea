@@ -1,97 +1,42 @@
 function studioIntro()
     local scene = {}
-    local anim = {fallingFade = 0, fade = 0, rot = 0}
-    local start
-    local exit = false
+    scene.action = action
     
-    local function nextScene()
-        scenes.next()
-        exit = true
-    end
+    -- local variables
+    local start
+    local stop
+    local action
+
+    -- local functions
     
     function scene.enter()
         return true
     end
     
     function scene.act()
-        background()
         start = start or time.total
+        action = action or scene.action(start)
+
+        -- start, stop, object (draw), action (tween)
+        action{120, 222, studio.whiteText, "whiteFadeIn"}
+        action{120, 230, studio.b}
+        action{120, 138, studio.falling, "colorFadeIn"}
+        action{223, 400, studio.whiteText}
+        action{139, 400, studio.falling}
+        action{231, 275, studio.b, "rotate", {-5, tween.easing.cubicIn}}
+        action{276, 335, studio.b, "rotate", {-30, tween.easing.bounceOut}}
+        action{401, 460, studio.whiteText, "whiteFadeOut"}
+        action{336, 460, studio.b}
+        action{401, 460, studio.falling, "colorFadeOut"}
         
-        if time.total == start + 120 then
-            tween(0.3, anim, {fallingFade = 255}, tween.easing.cubicIn)
-            tween(1.7, anim, {fade = 255}, tween.easing.cubicIn)
-        end
-        
-        if time.total == start + 230 then
-            tween(0.75, anim, {rot = -5}, tween.easing.cubicIn, function()
-                tween(1, anim, {rot = -30}, tween.easing.bounceOut) end)
-        end
-        
-        if time.total == start + 400 then
-            tween(1, anim, {fallingFade = 0, fade = 0}, tween.easing.cubicIn)
-        end
-        
-        if time.total == start + 500 then
-            nextScene()
-        end
-     
-        if time.total > start + 120 then
-            pushStyle()
-            
-            fill(255, 255, 255, anim.fade)
-            
-            font("Copperplate-Bold")
-            fontSize(60)
-            textMode(CORNER)
-            text("Falling", WIDTH / 2 - 176, HEIGHT / 2 - 15)
-            
-            pushStyle()
-            --fill(238, 136, 47, anim.fallingFade)
-            fill(201, 59, 15, anim.fallingFade)
-            textMode(CORNER)
-            text("Falling ", WIDTH / 2 - 176, HEIGHT / 2 - 15)
-            popStyle()
-            
-            pushStyle()
-            local B = image(44, 61)
-            setContext(B)
-            
-            fill(255, 255, 255, anim.fade)
-            textMode(CORNER)
-            text("B", 0, 0)
-            
-            setContext()
-            spriteMode(CORNER)
-            
-            translate(WIDTH / 2 + 85, HEIGHT / 2 - 15)
-            rotate(anim.rot)
-            sprite(B, 0, 0)
-            rotate(-anim.rot)
-            translate(-(WIDTH / 2 + 85), -(HEIGHT / 2 - 15))
-            
-            popStyle()
-            
-            pushStyle()
-            fill(255, 255, 255, anim.fade)
-            fontSize(60)
-            textMode(CORNER)
-            text("'s", WIDTH / 2 + 130, HEIGHT / 2 - 15)
-            popStyle()
-            
-            font("Copperplate-Light")
-            textMode(CENTER)
-            fontSize(26)
-            text("Studio", WIDTH / 2, HEIGHT / 2 - 20)
-            
-            popStyle()     
-        end
+        stop = (time.total == start + 500)
     end
     
     function scene.exit()
-        return exit
+        return stop
     end
     
-    function scene.touched(t)
+    function scene.touched()
         -- Do nothing
     end
     

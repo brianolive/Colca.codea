@@ -4,16 +4,17 @@ function action(baseTime)
         local stop = t[2]
         local object = t[3]
         local act = t[4]
+        local params = t[5] or {}
         
-        local duration = ((stop - start) + 1) / 60
+        params.duration = ((stop - start) + 1) / 60
 
         if act and time.total == baseTime + start then
-            object[act](duration)
+            object[act](params)
         end
         
         if time.total >= baseTime + start and time.total <= baseTime + stop then
             if object["draw"] then
-                object["draw"]()
+                object["draw"](params)
             end
         end
     end

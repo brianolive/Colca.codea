@@ -18,7 +18,7 @@ function levelTitle()
         action = action or scene.action(start)
 
         -- start, stop, object (draw), action (tween)
-        action{61, 90, title.underline, "fadeIn"}
+        action{61, 90, title.underline, "fadeIn", {}}
         action{61, 360, title.underline, "stretch"}
         action{121, 180, title, "fadeIn"}
         action{181, 360, title}

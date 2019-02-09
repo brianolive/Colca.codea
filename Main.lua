@@ -12,7 +12,7 @@ function setup()
     time()
     stage()
     levels()
-    scenes(4)
+    scenes(2)
     
     --table.insert(stage.left, time)
 end
