@@ -16,8 +16,8 @@
 		<string>Mix</string>
 		<string>StudioIntro</string>
 		<string>Menu</string>
-		<string>LevelIntro</string>
-		<string>Level</string>
+		<string>Title</string>
+		<string>Play</string>
 	</array>
 	<key>Description</key>
 	<string>No description available</string>

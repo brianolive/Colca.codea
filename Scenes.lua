@@ -2,17 +2,16 @@ function scenes(n)
     local currentScene = n or 1
     
     scenes = {
-        {time},
         {studioIntroScene},
         {menuScene},
-        {levelIntro, "RedTitle"},
-        {levelScene, "RedIntro"},
-        {levelScene, "Red"}
+        {titleScene, "RedTitle"},
+        {playScene, "RedIntro"},
+        {playScene, "Red"}
     }
     
     function scenes.next(n)
         currentScene = n or currentScene + 1
-        
+
         if scenes[currentScene] then
             -- Scene, Level
             levels.current = scenes[currentScene][2]
@@ -37,7 +36,7 @@ function scenes(n)
             end
         end
     end
-    
+
     scenes.next(currentScene)
     
     return scenes

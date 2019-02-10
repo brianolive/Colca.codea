@@ -1,4 +1,5 @@
 function studioIntroScene()
+    local studioIntro = StudioIntro()
     local scene = {}
     scene.action = action
     
@@ -6,8 +7,6 @@ function studioIntroScene()
     local start
     local stop
     local action
-
-    -- local functions
     
     function scene.enter()
         return true
@@ -43,121 +42,121 @@ function studioIntroScene()
     return scene
 end
 
-studioIntro = {}
-
-studioIntro.b = {
-    rot = 0
-}
-studioIntro.b.tweens = {}
-
-studioIntro.falling = {
-    fallingFade = 0
-}
-studioIntro.falling.tweens = {}
-
-studioIntro.whiteText = {
-    fade = 0
-}
-studioIntro.whiteText.tweens = {}
-
-function studioIntro.b.rotate(params)
-    studioIntro.b.tweens.rot = tween(
-        params.duration,
-        studioIntro.b,
-        {rot = params[1]},
-        params[2]
-    )
-end
-
-function studioIntro.b.draw(params)
-    pushStyle()
+function StudioIntro()
+    local studioIntro = {
+        b = {
+            rot = 0
+        },
+        falling = {
+            fallingFade = 0
+        },
+        tweens = {},
+        whiteText = {
+            fade = 0
+        }
+    }
     
-    font("Copperplate-Bold")
-    fontSize(60)
-    textMode(CORNER)
+    function studioIntro.b.rotate(params)
+        studioIntro.tweens.rot = tween(
+            params.duration,
+            studioIntro.b,
+            {rot = params[1]},
+            params[2]
+        )
+    end
     
-    local B = image(44, 61)
-    setContext(B)
-            
-    fill(255, 255, 255, studioIntro.whiteText.fade)
-    text("B", 0, 0)
-
-    setContext()
-    spriteMode(CORNER)
-            
-    translate(WIDTH / 2 + 85, HEIGHT / 2 - 15)
-    rotate(studioIntro.b.rot)
-    sprite(B, 0, 0)
-    rotate(-studioIntro.b.rot)
-    translate(-(WIDTH / 2 + 85), -(HEIGHT / 2 - 15))
-            
-    popStyle()
-end
-
-function studioIntro.falling.colorFadeIn(params)
-    studioIntro.falling.tweens.fallingFadeIn = tween(
-        params.duration,
-        studioIntro.falling,
-        {fallingFade = 255},
-        tween.easing.cubicIn
-    )
-end
-
-function studioIntro.falling.colorFadeOut(params)
-    studioIntro.falling.tweens.fallingFadeOut = tween(
-        params.duration,
-        studioIntro.falling,
-        {fallingFade = 0},
-        tween.easing.cubicIn
-    )
-end
-
-function studioIntro.falling.draw(params)
-    pushStyle()
-    
-    font("Copperplate-Bold")
-    fontSize(60)         
+    function studioIntro.b.draw(params)
+        pushStyle()
         
-    fill(201, 59, 15, studioIntro.falling.fallingFade)
-    textMode(CORNER)
-    text("Falling", WIDTH / 2 - 176, HEIGHT / 2 - 15)
-
-    popStyle()
-end
-
-function studioIntro.whiteText.whiteFadeIn(params)
-    studioIntro.whiteText.tweens.whiteFadeIn = tween(
-        params.duration,
-        studioIntro.whiteText,
-        {fade = 255},
-        tween.easing.cubicIn
-    )
-end
-
-function studioIntro.whiteText.whiteFadeOut(params)
-    studioIntro.whiteText.tweens.whiteFadeOut = tween(
-        params.duration,
-        studioIntro.whiteText,
-        {fade = 0},
-        tween.easing.cubicIn
-    )
-end
-
-function studioIntro.whiteText.draw(params)
-    pushStyle()
+        font("Copperplate-Bold")
+        fontSize(60)
+        textMode(CORNER)
+        
+        local B = image(44, 61)
+        setContext(B)
+                
+        fill(255, 255, 255, studioIntro.whiteText.fade)
+        text("B", 0, 0)
+        
+        setContext()
+        spriteMode(CORNER)
+                
+        translate(WIDTH / 2 + 85, HEIGHT / 2 - 15)
+        rotate(studioIntro.b.rot)
+        sprite(B, 0, 0)
+        rotate(-studioIntro.b.rot)
+        translate(-(WIDTH / 2 + 85), -(HEIGHT / 2 - 15))
+                
+        popStyle()
+    end
     
-    fill(255, 255, 255, studioIntro.whiteText.fade)
+    function studioIntro.falling.colorFadeIn(params)
+        studioIntro.tweens.fallingFadeIn = tween(
+            params.duration,
+            studioIntro.falling,
+            {fallingFade = 255},
+            tween.easing.cubicIn
+        )
+    end
     
-    font("Copperplate-Bold")
-    fontSize(60)
-    textMode(CORNER)
-    text("Falling", WIDTH / 2 - 176, HEIGHT / 2 - 15)
-    text("'s", WIDTH / 2 + 130, HEIGHT / 2 - 15)
+    function studioIntro.falling.colorFadeOut(params)
+        studioIntro.tweens.fallingFadeOut = tween(
+            params.duration,
+            studioIntro.falling,
+            {fallingFade = 0},
+            tween.easing.cubicIn
+        )
+    end
+    
+    function studioIntro.falling.draw(params)
+        pushStyle()
+        
+        font("Copperplate-Bold")
+        fontSize(60)         
             
-    font("Copperplate-Light")
-    textMode(CENTER)
-    fontSize(26)
-    text("Studio", WIDTH / 2, HEIGHT / 2 - 20)
+        fill(201, 59, 15, studioIntro.falling.fallingFade)
+        textMode(CORNER)
+        text("Falling", WIDTH / 2 - 176, HEIGHT / 2 - 15)
+        
+        popStyle()
+    end
     
-    popStyle()
+    function studioIntro.whiteText.whiteFadeIn(params)
+        studioIntro.tweens.whiteFadeIn = tween(
+            params.duration,
+            studioIntro.whiteText,
+            {fade = 255},
+            tween.easing.cubicIn
+        )
+    end
+    
+    function studioIntro.whiteText.whiteFadeOut(params)
+        studioIntro.tweens.whiteFadeOut = tween(
+            params.duration,
+            studioIntro.whiteText,
+            {fade = 0},
+            tween.easing.cubicIn
+        )
+    end
+    
+    function studioIntro.whiteText.draw(params)
+        pushStyle()
+        
+        fill(255, 255, 255, studioIntro.whiteText.fade)
+        
+        font("Copperplate-Bold")
+        fontSize(60)
+        textMode(CORNER)
+        text("Falling", WIDTH / 2 - 176, HEIGHT / 2 - 15)
+        text("'s", WIDTH / 2 + 130, HEIGHT / 2 - 15)
+                
+        font("Copperplate-Light")
+        textMode(CENTER)
+        fontSize(26)
+        text("Studio", WIDTH / 2, HEIGHT / 2 - 20)
+        
+        popStyle()
+    end
+    
+    return studioIntro
 end

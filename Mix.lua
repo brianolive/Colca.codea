@@ -49,27 +49,3 @@ function getMixedColor()
 
     return color(r, g, b)
 end
-
-function drawMix(col)
-    if col.r == 255 then
-        pushStyle()
-        
-        fill(0, 0, 0, 0)
-        stroke(col)
-        strokeWidth(5)
-        rect(0, (HEIGHT / 4) * 3,  WIDTH / 3, HEIGHT)
-              
-        popStyle()
-    end
-end
-
-function drawTap(col, tap)
-    if col.r == 255 then
-        pushStyle()
-
-        fill(150, 150, 150, tap)
-        ellipse((WIDTH / 3) / 2, (HEIGHT / 4) * 3 + ((HEIGHT / 4) / 2),  60, 62)
-        
-        popStyle()
-    end
-end
