@@ -13,11 +13,11 @@
 		<string>Scenes</string>
 		<string>Touch</string>
 		<string>Action</string>
+		<string>Mix</string>
 		<string>StudioIntro</string>
 		<string>Menu</string>
-		<string>TitleScene</string>
-		<string>Mix</string>
-		<string>Red</string>
+		<string>LevelIntro</string>
+		<string>Level</string>
 	</array>
 	<key>Description</key>
 	<string>No description available</string>

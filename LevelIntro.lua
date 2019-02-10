@@ -1,4 +1,4 @@
-function titleScene()
+function levelIntro()
     local scene = {}
     scene.action = action
     

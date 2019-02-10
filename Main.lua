@@ -2,17 +2,8 @@
 
 function setup()
     displayMode(FULLSCREEN)
-    parameter.watch("totalColcas")
-    parameter.watch("goodMixes")
-    parameter.watch("missedMixes")
-    parameter.watch("falls")
-    parameter.watch("hangingColcas")
-    parameter.watch("finish")
     
-    time()
-    stage()
-    levels()
-    scenes(3)
+    scenes(6)
     
     --table.insert(stage.left, time)
 end

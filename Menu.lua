@@ -36,8 +36,6 @@ function menuScene()
         action{211, 228, menu.playButton, "fadeIn"}
         action{229, stop, menu.playButton, "ifPressed"}
         action{229, stop, menu.curtain}
-        
-        --stop = (time.total == start + 500)
     end
     
     function scene.exit()

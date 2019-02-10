@@ -5,9 +5,9 @@ function scenes(n)
         {time},
         {studioIntroScene},
         {menuScene},
-        {titleScene, "RedTitle"},
-        {redScene, "RedIntro"},
-        {redScene, "Red"}
+        {levelIntro, "RedTitle"},
+        {levelScene, "RedIntro"},
+        {levelScene, "Red"}
     }
     
     function scenes.next(n)
