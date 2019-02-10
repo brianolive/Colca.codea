@@ -4,8 +4,7 @@ function scenes(n)
     scenes = {
         {studioIntroScene},
         {menuScene},
-        {titleScene, "RedTitle"},
-        {playScene, "RedIntro"},
+        {mixBoardScene, "Red"},
         {playScene, "Red"}
     }
     

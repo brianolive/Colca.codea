@@ -16,20 +16,10 @@ function playScene()
         start = start or time.total
         action = action or scene.action(start)
 
-        if levels[levels.current].type == "teach" then
-            action{1, 1, play.slots, "init"}
-            action{1, stop, play.slots, "ifDropTime", {start}}
-            action{1, stop, play, "ifOver"}
-            action{241, 264, play.mixBoxes, "show"}
-            action{265, stop, play.mixBoxes}
-            action{341, 352, play.finger, "tap", {200}}
-            action{353, 442, play.finger, "tap", {0}}
-        elseif levels[levels.current].type == "play" then
-            action{31, 210, play.message, "show", {"Ready"}}
-            action{211, 211, play.slots, "init"}
-            action{211, stop, play.slots, "ifDropTime", {start}}
-            action{211, stop, play, "ifOver"}
-        end
+        action{31, 210, play.message, "show", {"Ready"}}
+        action{211, 211, play.slots, "init"}
+        action{211, stop, play.slots, "ifDropTime", {start}}
+        action{211, stop, play, "ifOver"}
         
         action{1, stop, play.curtain}
     end
