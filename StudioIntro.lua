@@ -32,6 +32,10 @@ function studioIntroScene()
     end
     
     function scene.exit()
+        if stop == true then
+            scenes.next(2)
+        end
+        
         return stop
     end
     

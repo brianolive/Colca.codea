@@ -3,6 +3,7 @@ levels.current = nil
     
 levels["Red"] = {
     name = "Red",
+    next = "Red",
     slotCount = 10,
     spacing = (WIDTH - 200) / 9,
     leftSlotX = 100,

@@ -286,7 +286,7 @@ function Menu()
                         tween.easing.linear,
                         function()
                             sceneEnded = time.total
-                            scenes.next()
+                            scenes.next(3, "Red")
                             exit = true
                         end
                     )

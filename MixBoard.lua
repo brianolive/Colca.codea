@@ -36,6 +36,7 @@ function mixBoardScene()
     end
     
     function scene.touched(t)
+        action{1, stop, mixBoard, "ifTouchedEaster", {t}}
         action{181, stop, mixBoard, "ifTouched", {t, colors[#colors]}}
     end
     
@@ -89,9 +90,19 @@ function MixBoard()
                     tween.easing.linear,
                     function()
                         mixBoard.stop = true
+                        scenes.next(4, levels.current)
                     end
                 )
             end
+        end
+    end
+    
+    function mixBoard.ifTouchedEaster(params)
+        local t = params[1]
+        
+        if t.state == BEGAN and t.tapCount == 4 then
+            mixBoard.stop = true
+            scenes.next(5, "Red")
         end
     end
     
@@ -114,9 +125,9 @@ function MixBoard()
     end
     
     function mixBoard.newColor.ifTapReminder(params)
-        if time.total % 120 == 0 or time.total % 123 == 0 then
+        if time.total % 120 == 0 or time.total % 121 == 0 then
             mixBoard.tweens.newColorBorder = tween(
-                0.1,
+                0.05,
                 mixBoard.newColor,
                 {border = 255},
                 tween.easing.linear,

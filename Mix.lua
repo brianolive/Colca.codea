@@ -16,7 +16,7 @@ function mix(t)
             return true
         end
     else
-        stage.touches[t.id] = 1
+        stage.touches[t.id] = t
     end
     
     return false

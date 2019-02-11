@@ -3,7 +3,7 @@
 function setup()
     displayMode(FULLSCREEN)
     
-    scenes(3)
+    scenes(1)
     
     --table.insert(stage.left, time)
 end

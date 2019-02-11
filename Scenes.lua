@@ -4,16 +4,18 @@ function scenes(n)
     scenes = {
         {studioIntroScene},
         {menuScene},
-        {mixBoardScene, "Red"},
-        {playScene, "Red"}
+        {mixBoardScene},
+        {playScene},
+        {mixPracticeScene}
     }
     
-    function scenes.next(n)
-        currentScene = n or currentScene + 1
+    function scenes.next(n, level)
+        local currentScene = n or currentScene + 1
+        local level = level or "Red"
 
         if scenes[currentScene] then
             -- Scene, Level
-            levels.current = scenes[currentScene][2]
+            levels.current = level or scenes[currentScene][2]
             table.insert(stage.left, scenes[currentScene][1]())
         end
     end
@@ -31,7 +33,7 @@ function scenes(n)
             
             if stage[i].exit() == true then
                 table.remove(stage, i)
-                scenes.next()
+                --scenes.next()
             end
         end
     end
