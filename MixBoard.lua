@@ -125,7 +125,7 @@ function MixBoard()
     end
     
     function mixBoard.newColor.ifTapReminder(params)
-        if time.total % 120 == 0 or time.total % 121 == 0 then
+        if time.total % 120 == 0 then
             mixBoard.tweens.newColorBorder = tween(
                 0.05,
                 mixBoard.newColor,

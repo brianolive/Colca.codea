@@ -60,7 +60,8 @@ function Menu()
         curtain = {},
         finalFadeOut = 0,
         leftMountain = {
-            col = color(68, 121, 59, 255),
+            --col = color(68, 121, 59, 255),
+            col = color(0, 127, 0, 255),
             xy = 400
         },
         middleMountain = {
@@ -71,7 +72,8 @@ function Menu()
             col = color(255, 255, 255)
         },
         rightMountain = {
-            col = color(58, 91, 53, 255),
+            --col = color(58, 91, 53, 255),
+            col = color(0, 63, 0, 255),
             y = -1100
         },
         title = {
@@ -85,7 +87,8 @@ function Menu()
         menu.fadeToColor = tween(
             params.duration,
             menu.backgroundColor,
-            {r = 0, g = 126, b = 158}
+            --{r = 0, g = 126, b = 158}
+            {r = 0, g = 127, b = 191}
         )
     end
     
@@ -128,7 +131,8 @@ function Menu()
     function menu.colca.draw(params)
         pushStyle()
         
-        stroke(245, 218, 0, menu.colca.fade)
+        --stroke(245, 218, 0, menu.colca.fade)
+        stroke(255, 255, 0, menu.colca.fade)
         strokeWidth(10)
         line(WIDTH / 2 - 177, HEIGHT, WIDTH / 2 - 177, menu.colca.dropString + 100)
                 
@@ -136,7 +140,8 @@ function Menu()
         strokeWidth(1)
         line(WIDTH / 2 - 177 - 5, HEIGHT, WIDTH / 2 - 177 - 5, menu.colca.dropString + 100)
                 
-        stroke(245, 218, 0, menu.colca.fade)
+        --stroke(245, 218, 0, menu.colca.fade)
+        stroke(255, 255, 0, menu.colca.fade)
         strokeWidth(20)
         fill(0, 0, 0, 0)
         ellipse(WIDTH / 2 - 177, menu.colca.dropColca, 200)

@@ -6,7 +6,8 @@ function scenes(n)
         {menuScene},
         {mixBoardScene},
         {playScene},
-        {mixPracticeScene}
+        {mixPracticeScene},
+        {newPlayScene}
     }
     
     function scenes.next(n, level)
